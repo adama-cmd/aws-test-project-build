@@ -1,0 +1,29 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8  #specify the python version
+    commands:
+      - echo installing dependencies...
+      - pip install -r requirement.txt
+  pre_build:
+    commands:
+      - echo start prebuild and end it
+  build:
+    commands:
+      - echo running unit tests with pytest...
+      - pytest --junitxml=report/results.xml --tb=short # Generate
+  post_build:
+    commands:
+      - echo build completed successfully
+
+artifacts:
+  files:
+    - "**/*"
+  phase-directory: .
+reports:
+  pytest_reports:
+    files:
+      - "reports/results.xml"
+    discards-paths: yes
